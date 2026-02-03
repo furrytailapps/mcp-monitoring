@@ -1,0 +1,130 @@
+{
+  "sources": {
+    "smhi": {
+      "https://opendata.smhi.se/": {
+        "hash": "f45d3503257d3e0f",
+        "lastChecked": "2026-02-03T22:25:43.970Z",
+        "status": 200
+      },
+      "https://opendata.smhi.se/apidocs/": {
+        "hash": "f45d3503257d3e0f",
+        "lastChecked": "2026-02-03T22:25:43.981Z",
+        "status": 200
+      }
+    },
+    "trafikverket": {
+      "https://data.trafikverket.se/": {
+        "hash": "9f57a9a057e65620",
+        "lastChecked": "2026-02-03T22:25:44.134Z",
+        "status": 200
+      },
+      "https://api.trafikinfo.trafikverket.se/API": {
+        "hash": "e3b0c44298fc1c14",
+        "lastChecked": "2026-02-03T12:49:07.733Z",
+        "status": 404
+      },
+      "https://lastkajen.trafikverket.se/": {
+        "hash": "a801e0774e1368be",
+        "lastChecked": "2026-02-03T12:49:07.804Z",
+        "status": 200
+      },
+      "https://www.trafiklab.se/news/": {
+        "hash": "542ba34ae484ee34",
+        "lastChecked": "2026-02-03T22:25:44.068Z",
+        "status": 200
+      }
+    },
+    "sgu": {
+      "https://www.sgu.se/": {
+        "hash": "187e53c029d59d97",
+        "lastChecked": "2026-02-03T22:25:44.377Z",
+        "status": 200
+      },
+      "https://resource.sgu.se/": {
+        "hash": "45a3db1b5e213e0f",
+        "lastChecked": "2026-02-03T22:25:44.426Z",
+        "status": 403
+      }
+    },
+    "naturvardsverket": {
+      "https://geodata.naturvardsverket.se/": {
+        "hash": "0bfb7dcbc448d381",
+        "lastChecked": "2026-02-03T22:25:44.522Z",
+        "status": 200
+      },
+      "https://oppnadata.naturvardsverket.se/": {
+        "hash": "2d709f888ad5dc02",
+        "lastChecked": "2026-02-03T22:25:44.604Z",
+        "status": 200
+      }
+    }
+  },
+  "health": {
+    "smhi": {
+      "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/18.07/lat/59.33/data.json": {
+        "lastChecked": "2026-02-03T12:49:08.221Z",
+        "status": 200,
+        "responseTime": 36
+      },
+      "https://opendata-download-warnings.smhi.se/ibww/api/version/1/warning.json": {
+        "lastChecked": "2026-02-03T12:49:08.334Z",
+        "status": 200,
+        "responseTime": 113
+      }
+    },
+    "trafikverket": {
+      "https://api.trafikinfo.trafikverket.se/v2/data.json": {
+        "lastChecked": "2026-02-03T11:47:10.211Z",
+        "status": 400,
+        "responseTime": 582
+      },
+      "https://api.trafikinfo.trafikverket.se/API": {
+        "lastChecked": "2026-02-03T12:49:08.347Z",
+        "status": 404,
+        "responseTime": 13
+      },
+      "https://lastkajen.trafikverket.se/api/Tunnel": {
+        "lastChecked": "2026-02-03T12:49:08.390Z",
+        "status": 404,
+        "responseTime": 43
+      }
+    },
+    "sgu": {
+      "https://api.sgu.se/oppnadata/berggrund50k-250k/ogc/features/v1": {
+        "lastChecked": "2026-02-03T12:49:08.432Z",
+        "status": 200,
+        "responseTime": 42
+      },
+      "https://maps3.sgu.se/geoserver/berg/ows?service=WMS&request=GetCapabilities": {
+        "lastChecked": "2026-02-03T12:49:08.570Z",
+        "status": 200,
+        "responseTime": 138
+      }
+    },
+    "naturvardsverket": {
+      "https://geodata.naturvardsverket.se/naturvardsregistret/rest/v3/areas": {
+        "lastChecked": "2026-02-03T11:47:10.481Z",
+        "status": 404,
+        "responseTime": 73
+      },
+      "https://geodata.naturvardsverket.se/n2000/rest/v3/areas": {
+        "lastChecked": "2026-02-03T11:47:10.545Z",
+        "status": 404,
+        "responseTime": 64
+      },
+      "https://geodata.naturvardsverket.se/naturvardsregistret/rest/v3/omrade?id=2000019": {
+        "lastChecked": "2026-02-03T12:49:08.614Z",
+        "status": 200,
+        "responseTime": 44
+      },
+      "https://geodata.naturvardsverket.se/n2000/rest/v3/omrade?id=SE0110001": {
+        "lastChecked": "2026-02-03T12:49:08.726Z",
+        "status": 200,
+        "responseTime": 112
+      }
+    }
+  },
+  "lastFullCheck": "2026-02-03T12:49:08.181Z",
+  "lastHealthCheck": "2026-02-03T12:49:08.726Z",
+  "lastCheck": "2026-02-03T22:25:44.604Z"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "mcp-monitoring",
+  "version": "2.0.0",
+  "description": "Monitors upstream API changes for MCP servers using LLM analysis and sends Slack notifications",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "discover": "tsx src/index.ts discover",
+    "check-sources": "tsx src/index.ts check-sources",
+    "check": "tsx src/index.ts check",
+    "notify-test": "tsx src/index.ts notify-test",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@slack/webhook": "^7.0.2",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.0.0"
+  }
+}

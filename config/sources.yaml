@@ -1,0 +1,40 @@
+# MCP Upstream API News Sources
+# This file registers known news/changelog URLs for each upstream API.
+# The monitor checks these pages for changes and uses LLM analysis to evaluate relevance.
+
+sources:
+  # SMHI - Swedish Meteorological and Hydrological Institute
+  smhi:
+    name: "SMHI Open Data"
+    web_pages:
+      - url: "https://opendata.smhi.se/"
+        description: "Main open data portal"
+      - url: "https://opendata.smhi.se/apidocs/"
+        description: "API documentation"
+
+  # Trafikverket - Swedish Transport Administration
+  trafikverket:
+    name: "Trafikverket"
+    web_pages:
+      - url: "https://www.trafiklab.se/news/"
+        description: "Trafiklab news (API updates announced here)"
+      - url: "https://data.trafikverket.se/"
+        description: "Developer portal"
+
+  # SGU - Geological Survey of Sweden
+  sgu:
+    name: "SGU"
+    web_pages:
+      - url: "https://www.sgu.se/"
+        description: "SGU homepage"
+      - url: "https://resource.sgu.se/"
+        description: "SGU resources portal"
+
+  # Naturvardsverket - Swedish Environmental Protection Agency
+  naturvardsverket:
+    name: "Naturvårdsverket"
+    web_pages:
+      - url: "https://geodata.naturvardsverket.se/"
+        description: "Geodata portal"
+      - url: "https://oppnadata.naturvardsverket.se/"
+        description: "Open data portal"

@@ -1,0 +1,59 @@
+name: MCP Upstream API Monitor
+
+on:
+  # Monthly full check (1st of each month at 9am UTC)
+  schedule:
+    - cron: '0 9 1 * *'
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'Command to run'
+        required: true
+        default: 'check'
+        type: choice
+        options:
+          - check
+          - check-sources
+          - discover
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run monitor
+        run: |
+          COMMAND="${{ github.event.inputs.command || 'check' }}"
+          echo "Running: npm run $COMMAND"
+          npm run $COMMAND
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Commit state changes
+        if: github.event_name == 'schedule'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          if git diff --quiet state/; then
+            echo "No state changes to commit"
+          else
+            git add state/
+            git commit -m "chore: update monitoring state [skip ci]"
+            git push
+          fi
