@@ -258,10 +258,21 @@ function guessApiName(baseUrl: string): string {
 }
 
 /**
- * Get the repo root directory (one level up from monitoring/)
+ * Get the monitoring repo root directory
  */
-export function getRepoRoot(): string {
-  // This file is at monitoring/src/discovery.ts
-  // Repo root is two levels up
+export function getMonitoringRoot(): string {
+  // This file is at src/discovery.ts, root is one level up
+  return resolve(import.meta.dirname, '..');
+}
+
+/**
+ * Get the directory to scan for MCPs
+ * Can be configured via MCP_SCAN_ROOT environment variable
+ */
+export function getMcpScanRoot(): string {
+  if (process.env.MCP_SCAN_ROOT) {
+    return resolve(process.env.MCP_SCAN_ROOT);
+  }
+  // Default: parent directory (for local monorepo setup)
   return resolve(import.meta.dirname, '..', '..');
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { join } from 'path';
-import { discoverMcps, getRepoRoot } from './discovery.js';
+import { discoverMcps, getMonitoringRoot, getMcpScanRoot } from './discovery.js';
 import {
   checkSources,
   groupChangesByProvider,
@@ -28,13 +28,14 @@ async function main() {
     process.exit(1);
   }
 
-  const repoRoot = getRepoRoot();
-  const configDir = join(repoRoot, 'monitoring', 'config');
-  const stateDir = join(repoRoot, 'monitoring', 'state');
+  const monitoringRoot = getMonitoringRoot();
+  const mcpScanRoot = getMcpScanRoot();
+  const configDir = join(monitoringRoot, 'config');
+  const stateDir = join(monitoringRoot, 'state');
 
   switch (command) {
     case 'discover':
-      await runDiscover(repoRoot);
+      await runDiscover(mcpScanRoot);
       break;
 
     case 'check-sources':
@@ -42,7 +43,7 @@ async function main() {
       break;
 
     case 'check':
-      await runFullCheck(repoRoot, configDir, stateDir);
+      await runFullCheck(mcpScanRoot, configDir, stateDir);
       break;
 
     case 'notify-test':
@@ -121,7 +122,7 @@ async function runCheckSources(configDir: string, stateDir: string) {
   console.log('\nNote: Run `npm run check` for full LLM analysis of changes.');
 }
 
-async function runFullCheck(repoRoot: string, configDir: string, stateDir: string) {
+async function runFullCheck(mcpScanRoot: string, configDir: string, stateDir: string) {
   console.log('Running full check with LLM analysis...\n');
   console.log('═══════════════════════════════════════════════════════════════\n');
 
@@ -137,7 +138,7 @@ async function runFullCheck(repoRoot: string, configDir: string, stateDir: strin
 
   // Step 1: Discover MCPs
   console.log('Step 1/4: Discovering MCPs...');
-  const mcps = await discoverMcps(repoRoot);
+  const mcps = await discoverMcps(mcpScanRoot);
   console.log(`  Found ${mcps.length} MCP(s)\n`);
 
   // Step 2: Check sources for changes
@@ -244,6 +245,7 @@ Commands:
 Environment Variables:
   ANTHROPIC_API_KEY   Required for LLM analysis (check command)
   SLACK_WEBHOOK_URL   Required for Slack notifications
+  MCP_SCAN_ROOT       Directory containing mcp-* folders (default: parent dir)
 
 Examples:
   npm run discover           # List all discovered MCPs
