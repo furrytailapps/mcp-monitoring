@@ -97,12 +97,17 @@ async function runCheckSources(configDir: string, stateDir: string) {
   console.log(`Found ${changes.length} change(s):\n`);
 
   for (const change of changes) {
-    const emoji =
-      change.changeType === 'unavailable'
-        ? '❌'
-        : change.changeType === 'new'
-          ? '🆕'
-          : '📝';
+    let emoji: string;
+    switch (change.changeType) {
+      case 'unavailable':
+        emoji = '❌';
+        break;
+      case 'new':
+        emoji = '🆕';
+        break;
+      default:
+        emoji = '📝';
+    }
 
     console.log(`${emoji} ${change.apiName}: ${change.description}`);
     console.log(`   Type: ${change.changeType}`);

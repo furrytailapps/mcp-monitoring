@@ -1,4 +1,5 @@
 import { callLLM } from '../llm-client.js';
+import { type ImpactLevel } from '../types.js';
 import { type ApiResearcherOutput } from './api-researcher.js';
 import { type McpResearcherOutput } from './mcp-researcher.js';
 
@@ -15,7 +16,7 @@ export interface EngineerOutput {
 export interface EngineerDetail {
   mcp: string;
   changes: string[];
-  impact: 'high' | 'medium' | 'low';
+  impact: ImpactLevel;
 }
 
 const SYSTEM_PROMPT = `You are a software engineer reviewing API changes to determine their impact on MCP servers.

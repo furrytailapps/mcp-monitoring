@@ -1,13 +1,13 @@
 import { callLLM } from '../llm-client.js';
+import { type ImpactLevel } from '../types.js';
 
 export type ChangeType = 'deprecation' | 'breaking' | 'new_feature' | 'maintenance' | 'unknown';
-export type Relevance = 'high' | 'medium' | 'low';
 
 export interface ApiChange {
   title: string;
   summary: string;
   type: ChangeType;
-  relevance: Relevance;
+  relevance: ImpactLevel;
   sourceUrl: string;
   date: string | null;
 }

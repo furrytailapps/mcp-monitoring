@@ -1,5 +1,5 @@
 import { IncomingWebhook } from '@slack/webhook';
-import { type EngineerOutput, type EngineerDetail } from './agents/engineer.js';
+import { type EngineerOutput } from './agents/engineer.js';
 
 interface SlackBlock {
   type: string;
@@ -129,8 +129,17 @@ function buildSlackBlocks(engineerOutput: EngineerOutput): SlackBlock[] {
 
   // Details for each affected MCP
   for (const detail of engineerOutput.details) {
-    const impactEmoji =
-      detail.impact === 'high' ? ':red_circle:' : detail.impact === 'medium' ? ':large_yellow_circle:' : ':white_circle:';
+    let impactEmoji: string;
+    switch (detail.impact) {
+      case 'high':
+        impactEmoji = ':red_circle:';
+        break;
+      case 'medium':
+        impactEmoji = ':large_yellow_circle:';
+        break;
+      default:
+        impactEmoji = ':white_circle:';
+    }
 
     blocks.push({
       type: 'section',
@@ -180,12 +189,17 @@ export function formatConsoleReport(engineerOutput: EngineerOutput): string {
   lines.push('');
 
   // Action indicator
-  const actionIndicator =
-    engineerOutput.action === 'urgent'
-      ? '[!!!] URGENT'
-      : engineerOutput.action === 'notify'
-        ? '[!] NOTIFY'
-        : '[ ] NO ACTION';
+  let actionIndicator: string;
+  switch (engineerOutput.action) {
+    case 'urgent':
+      actionIndicator = '[!!!] URGENT';
+      break;
+    case 'notify':
+      actionIndicator = '[!] NOTIFY';
+      break;
+    default:
+      actionIndicator = '[ ] NO ACTION';
+  }
 
   lines.push(`Action: ${actionIndicator}`);
   lines.push('');
@@ -203,8 +217,17 @@ export function formatConsoleReport(engineerOutput: EngineerOutput): string {
     lines.push('───────────────────────────────────────────────────────────────');
 
     for (const detail of engineerOutput.details) {
-      const impactIcon =
-        detail.impact === 'high' ? '[!]' : detail.impact === 'medium' ? '[~]' : '[ ]';
+      let impactIcon: string;
+      switch (detail.impact) {
+        case 'high':
+          impactIcon = '[!]';
+          break;
+        case 'medium':
+          impactIcon = '[~]';
+          break;
+        default:
+          impactIcon = '[ ]';
+      }
 
       lines.push('');
       lines.push(`${impactIcon} ${detail.mcp} (${detail.impact} impact)`);
