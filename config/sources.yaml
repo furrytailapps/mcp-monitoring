@@ -11,6 +11,8 @@ sources:
         description: "Main open data portal"
       - url: "https://opendata.smhi.se/apidocs/"
         description: "API documentation"
+      - url: "https://www.smhi.se/4.55d446f91937861d43d481c/12.53cdce23194f389da05195a.portlet?state=rss&sv.contenttype=text/xml;charset=UTF-8"
+        description: "SMHI RSS feed"
 
   # Trafikverket - Swedish Transport Administration
   trafikverket:
@@ -20,6 +22,8 @@ sources:
         description: "Trafiklab news (API updates announced here)"
       - url: "https://data.trafikverket.se/"
         description: "Developer portal"
+      - url: "https://bransch.trafikverket.se/om-oss/aktuellt-for-dig-i-branschen3/Trafikverkets-RSS-floden/RSS-floden-pa-amnessidor/nyheter-om-trafikverkets-data/"
+        description: "Trafikverket data news RSS feed"
 
   # SGU - Geological Survey of Sweden
   sgu:
@@ -38,3 +42,5 @@ sources:
         description: "Geodata portal"
       - url: "https://oppnadata.naturvardsverket.se/"
         description: "Open data portal"
+      - url: "https://geodata.naturvardsverket.se/rss"
+        description: "Naturvårdsverket geodata RSS feed"
