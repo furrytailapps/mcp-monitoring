@@ -5,20 +5,20 @@ Monitors upstream API changes for MCP servers using intelligent LLM analysis and
 ## Features
 
 - **Auto-Discovery**: Automatically finds MCPs by scanning for `mcp-*` directories
-- **Hash-Based Change Detection**: Efficiently detects when web pages have changed
-- **LLM-Powered Analysis**: Uses Claude to intelligently analyze changes and determine impact
+- **Hash-Based Change Detection**: Efficiently detects when web pages or RSS feeds have changed
+- **LLM-Powered Analysis**: Uses Claude Sonnet to intelligently analyze changes and determine impact
 - **3-Agent Pipeline**: API Researcher → MCP Researcher → Engineer decision
 - **Smart Caching**: MCP dependency analysis cached for 30 days
 - **Slack Notifications**: Sends alerts only when action is needed
+- **GitHub Actions**: Automated monthly checks with manual trigger option
 
 ## Quick Start
 
 ```bash
 # Install dependencies
-cd monitoring
 npm install
 
-# Discover MCPs in the repo
+# Discover MCPs in parent directory
 npm run discover
 
 # Check sources for changes (hash-based only)
@@ -43,12 +43,23 @@ ANTHROPIC_API_KEY="sk-ant-..." npm run check
 |----------|----------|-------------|
 | `ANTHROPIC_API_KEY` | For `check` | Claude API key for LLM analysis |
 | `SLACK_WEBHOOK_URL` | For notifications | Slack incoming webhook URL |
+| `MCP_SCAN_ROOT` | No | Directory containing `mcp-*` folders (default: parent directory) |
+
+## GitHub Actions Setup
+
+The workflow runs automatically on the 1st of each month, or can be triggered manually.
+
+1. Go to your repo's **Settings → Secrets and variables → Actions**
+2. Add these secrets:
+   - `ANTHROPIC_API_KEY` - Your Claude API key
+   - `SLACK_WEBHOOK_URL` - Your Slack webhook URL
+3. Trigger manually: **Actions → MCP Upstream API Monitor → Run workflow**
 
 ## How It Works
 
 The v2 monitor uses a 3-agent LLM pipeline:
 
-1. **Hash-Based Change Detection**: Fetches web pages, computes hashes, detects changes efficiently
+1. **Hash-Based Change Detection**: Fetches web pages and RSS feeds, computes hashes, detects changes efficiently
 
 2. **Agent 1 - API Researcher**: Analyzes changed page content to extract API-relevant announcements (deprecations, breaking changes, new features, maintenance)
 
@@ -58,31 +69,16 @@ The v2 monitor uses a 3-agent LLM pipeline:
 
 5. **Notification**: Sends to Slack only if action is required (urgent or notify level)
 
-## Slack Setup
+## Monitored Sources
 
-1. **Create a Slack App**:
-   - Go to https://api.slack.com/apps
-   - Click "Create New App" → "From scratch"
-   - Name it "MCP Monitor" and select your workspace
+The monitor tracks these Swedish government API sources:
 
-2. **Enable Incoming Webhooks**:
-   - In your app settings, go to "Incoming Webhooks"
-   - Toggle "Activate Incoming Webhooks" to On
-   - Click "Add New Webhook to Workspace"
-   - Select the channel for notifications
-   - Copy the webhook URL
-
-3. **Configure**:
-   ```bash
-   export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/..."
-   export ANTHROPIC_API_KEY="sk-ant-..."
-   npm run check
-   ```
-
-4. **Test**:
-   ```bash
-   npm run notify-test
-   ```
+| Provider | Sources |
+|----------|---------|
+| **SMHI** | Open data portal, API docs, RSS feed |
+| **Trafikverket** | Trafiklab news, Developer portal, RSS feed |
+| **SGU** | Homepage, Resources portal |
+| **Naturvårdsverket** | Geodata portal, Open data portal, RSS feed |
 
 ## Configuration
 
@@ -95,8 +91,8 @@ sources:
     web_pages:
       - url: "https://api.example.com/docs"
         description: "API documentation"
-      - url: "https://api.example.com/news"
-        description: "Release notes"
+      - url: "https://api.example.com/feed.rss"
+        description: "RSS feed"
 ```
 
 ### State File (`state/last-check.json`)
@@ -109,9 +105,11 @@ Stores:
 ## Architecture
 
 ```
-monitoring/
+├── .github/
+│   └── workflows/
+│       └── monitor.yml        # GitHub Actions workflow
 ├── config/
-│   └── sources.yaml           # Web pages to monitor
+│   └── sources.yaml           # Web pages and RSS feeds to monitor
 ├── state/
 │   └── last-check.json        # Hashes + MCP researcher cache
 ├── src/
@@ -119,6 +117,7 @@ monitoring/
 │   │   ├── api-researcher.ts  # LLM: Extracts API changes from pages
 │   │   ├── mcp-researcher.ts  # LLM: Understands MCP dependencies
 │   │   └── engineer.ts        # LLM: Decides action needed
+│   ├── types.ts               # Shared type definitions
 │   ├── llm-client.ts          # Claude API wrapper
 │   ├── discovery.ts           # Auto-discover MCPs
 │   ├── source-checker.ts      # Hash-based change detection
@@ -133,6 +132,7 @@ Using Claude Sonnet for all 3 agents:
 - Estimated: ~$0.15-0.30 per full run (4 APIs × 3 agents)
 - MCP researcher results cached to minimize repeated calls
 - Only analyzes pages that have actually changed
+- No cost for `check-sources` (hash-only, no LLM)
 
 ## Action Levels
 
@@ -155,8 +155,13 @@ Using Claude Sonnet for all 3 agents:
 
 **MCP not being discovered:**
 - Ensure directory name starts with `mcp-`
-- Check that the directory exists and has a CLAUDE.md
+- Set `MCP_SCAN_ROOT` to the directory containing your MCPs
+- Check that the MCP directory has a CLAUDE.md file
 
 **Changes not being analyzed:**
 - First run establishes baseline (new pages detected)
 - Subsequent runs compare hashes to detect actual changes
+
+**GitHub Actions failing:**
+- Verify secrets are set in repo settings
+- Check that `ANTHROPIC_API_KEY` and `SLACK_WEBHOOK_URL` are valid

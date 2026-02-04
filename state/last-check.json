@@ -3,19 +3,24 @@
     "smhi": {
       "https://opendata.smhi.se/": {
         "hash": "f45d3503257d3e0f",
-        "lastChecked": "2026-02-03T22:25:43.970Z",
+        "lastChecked": "2026-02-04T08:19:31.343Z",
         "status": 200
       },
       "https://opendata.smhi.se/apidocs/": {
         "hash": "f45d3503257d3e0f",
-        "lastChecked": "2026-02-03T22:25:43.981Z",
+        "lastChecked": "2026-02-04T08:19:31.360Z",
+        "status": 200
+      },
+      "https://www.smhi.se/4.55d446f91937861d43d481c/12.53cdce23194f389da05195a.portlet?state=rss&sv.contenttype=text/xml;charset=UTF-8": {
+        "hash": "dc3464dc304a5c23",
+        "lastChecked": "2026-02-04T08:19:31.518Z",
         "status": 200
       }
     },
     "trafikverket": {
       "https://data.trafikverket.se/": {
         "hash": "9f57a9a057e65620",
-        "lastChecked": "2026-02-03T22:25:44.134Z",
+        "lastChecked": "2026-02-04T08:19:31.871Z",
         "status": 200
       },
       "https://api.trafikinfo.trafikverket.se/API": {
@@ -30,31 +35,41 @@
       },
       "https://www.trafiklab.se/news/": {
         "hash": "542ba34ae484ee34",
-        "lastChecked": "2026-02-03T22:25:44.068Z",
+        "lastChecked": "2026-02-04T08:19:31.617Z",
+        "status": 200
+      },
+      "https://bransch.trafikverket.se/om-oss/aktuellt-for-dig-i-branschen3/Trafikverkets-RSS-floden/RSS-floden-pa-amnessidor/nyheter-om-trafikverkets-data/": {
+        "hash": "84a23ed2d494b4c5",
+        "lastChecked": "2026-02-04T08:19:32.040Z",
         "status": 200
       }
     },
     "sgu": {
       "https://www.sgu.se/": {
         "hash": "187e53c029d59d97",
-        "lastChecked": "2026-02-03T22:25:44.377Z",
+        "lastChecked": "2026-02-04T08:19:32.253Z",
         "status": 200
       },
       "https://resource.sgu.se/": {
         "hash": "45a3db1b5e213e0f",
-        "lastChecked": "2026-02-03T22:25:44.426Z",
+        "lastChecked": "2026-02-04T08:19:32.397Z",
         "status": 403
       }
     },
     "naturvardsverket": {
       "https://geodata.naturvardsverket.se/": {
         "hash": "0bfb7dcbc448d381",
-        "lastChecked": "2026-02-03T22:25:44.522Z",
+        "lastChecked": "2026-02-04T08:19:32.563Z",
         "status": 200
       },
       "https://oppnadata.naturvardsverket.se/": {
         "hash": "2d709f888ad5dc02",
-        "lastChecked": "2026-02-03T22:25:44.604Z",
+        "lastChecked": "2026-02-04T08:19:32.663Z",
+        "status": 200
+      },
+      "https://geodata.naturvardsverket.se/rss": {
+        "hash": "23f61e7319efaed3",
+        "lastChecked": "2026-02-04T08:19:32.898Z",
         "status": 200
       }
     }
@@ -126,5 +141,5 @@
   },
   "lastFullCheck": "2026-02-03T12:49:08.181Z",
   "lastHealthCheck": "2026-02-03T12:49:08.726Z",
-  "lastCheck": "2026-02-03T22:25:44.604Z"
+  "lastCheck": "2026-02-04T08:19:32.898Z"
 }
